@@ -13,4 +13,15 @@
 * 內建截圖功能（點鍵盤最左上角的角落）
 
 # PianoMeter by NiceChord
-Piano keyboard &amp; pedals visualizer, with some fun stats about your playing, all in the browser!
+
+An 88-key piano keyboard display, great for practicing, recording videos, and live streaming! It has the following features:
+
+* No installation required, just need a browser that supports the Web MIDI API! (Brave, Chrome, Opera, etc.)
+* Displays the currently pressed notes as well as the notes sustained by the pedal.
+* Note counter
+* Shows the number of notes played per second
+* Legato score (average number of keys pressed simultaneously in the last second)
+* Calories burned estimation
+* Pedal depths display
+* Note name display
+* Built-in screenshot feature (click on the top-left corner of the keyboard)
