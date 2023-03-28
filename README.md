@@ -12,6 +12,8 @@
 * 音名顯示
 * 內建截圖功能（點鍵盤最左上角的角落）
 
+現在就用用看：https://nicechord.com/pianometer/
+
 # PianoMeter by NiceChord
 
 An 88-key piano keyboard display, great for practicing, recording videos, and live streaming! It has the following features:
@@ -25,3 +27,5 @@ An 88-key piano keyboard display, great for practicing, recording videos, and li
 * Pedal depths display
 * Note name display
 * Built-in screenshot feature (click on the top-left corner of the keyboard)
+
+Try it now: https://nicechord.com/pianometer/
