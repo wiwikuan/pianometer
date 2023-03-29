@@ -117,7 +117,7 @@ function drawTexts() {
 
   // NOTES
   let notesText = "NOTE COUNT" + "\n" + totalNotesPlayed;
-  text(notesText, 95, 79);
+  text(notesText, 85, 79);
 
   // CALORIES
   let caloriesText = "CALORIES" + "\n" + (totalIntensityScore/250).toFixed(3); // 250 Intensity = 1 kcal.
@@ -125,14 +125,15 @@ function drawTexts() {
 
   // SHORT-TERM DENSITY
   let shortTermDensity = shortTermTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0); // Sum the array.
-  let shortTermDensityText = "NOTES/S" + "\n" + shortTermDensity;
-  text(shortTermDensityText, 200, 79);
+  if (shortTermDensity > notesSMax) { notesSMax = shortTermDensity };
+  let shortTermDensityText = "NPS(MAX)" + "\n" + shortTermDensity + " (" + notesSMax + ")";
+  text(shortTermDensityText, 190, 79);
 
   // LEGATO SCORE
   let legatoScore = legatoHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0) 
   legatoScore /= 60;
   let legatoText = "LEGATO" + "\n" + legatoScore.toFixed(2);
-  text(legatoText, 280, 79);
+  text(legatoText, 276, 79);
   
   // NOW PLAYING
   let nowPlayingText = "KEYS" + "\n" + truncateString(getPressedKeys(), 47);
@@ -143,8 +144,6 @@ function pushHistories() {
   shortTermTotal.push(notesThisFrame);
   shortTermTotal.shift();
   notesThisFrame = 0;
-  
-
   legatoHistory.push(isKeyOn.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
   legatoHistory.shift();
   
@@ -219,4 +218,22 @@ function mouseClicked() {
   if (mouseX < 50 && mouseY < 50) {
     saveCanvas('nicechord-pianometer', 'png');
   }
+  if (mouseY > 76) {
+    if (mouseX <= 84) {
+      sessionStartTime = new Date();
+    }
+    
+    if (mouseX > 84 && mouseX < 170) {
+      totalNotesPlayed = 0;
+    }
+    
+    if (mouseX > 187 && mouseX < 257) {
+      notesSMax = 0; 
+    }
+    
+    if (mouseX > 347 && mouseX < 420) {
+      totalIntensityScore = 0; // RESET CALORIES
+    }
+  }
+  console.log(mouseX, mouseY);
 }

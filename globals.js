@@ -28,6 +28,7 @@ let notesThisFrame = 0;
 let totalNotesPlayed = 0;
 let shortTermTotal = new Array(60).fill(0);
 let legatoHistory = new Array(60).fill(0);
+let notesSMax = 0;
 let totalIntensityScore = 0;
 
 // for key pressed counter
