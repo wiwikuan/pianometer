@@ -1,24 +1,23 @@
-
 function setup() {
-    createCanvas(1098, 118).parent('piano-visualizer');
-    colorMode(HSB, 360, 100, 100, 100);
-    keyOnColor = color(326, 100, 100, 100); // <---- 編輯這裡換「按下時」的顏色！[HSB Color Mode] 
-    pedaledColor = color(326, 100, 70, 100); // <---- 編輯這裡換「踏板踩住」的顏色！[HSB Color Mode]
-    smooth(2);
-    frameRate(60);
-    initKeys();
+  createCanvas(1098, 118).parent('piano-visualizer');
+  colorMode(HSB, 360, 100, 100, 100);
+  keyOnColor = color(326, 100, 100, 100); // <---- 編輯這裡換「按下時」的顏色！[HSB Color Mode] 
+  pedaledColor = color(326, 100, 70, 100); // <---- 編輯這裡換「踏板踩住」的顏色！[HSB Color Mode]
+  smooth(2);
+  frameRate(60);
+  initKeys();
 
 }
 
 function draw() {
-    background(0, 0, 20, 100);
+  background(0, 0, 20, 100);
   pushHistories();
-    drawWhiteKeys();
-    drawBlackKeys();
-    // drawPedalLines();
-    // drawNotes();
-    
-    drawTexts();
+  drawWhiteKeys();
+  drawBlackKeys();
+  // drawPedalLines();
+  // drawNotes();
+
+  drawTexts();
 }
 
 function calculateSessionTime() {
@@ -37,66 +36,66 @@ function calculateSessionTime() {
 }
 
 function initKeys() {
-    for (i = 0; i<128; i++) {
-      isKeyOn[i] = 0;
-      isPedaled[i] = 0;
-    }
+  for (i = 0; i < 128; i++) {
+    isKeyOn[i] = 0;
+    isPedaled[i] = 0;
+  }
 }
 
 function drawWhiteKeys() {
-    let wIndex = 0; // white key index
-    stroke(0, 0, 0);
-    strokeWeight(1);
-    for (let i = 21; i < 109; i++) {
-      if (isBlack[i % 12] == 0) {
-        // it's a white key
-        if (isKeyOn[i] == 1 && !rainbowMode) {
-          fill(keyOnColor); // keypressed
-        } else if (isKeyOn[i] == 1 && rainbowMode) {
-          fill(map(i, 21, 108, 0, 1080)%360, 100, 100, 100); // rainbowMode
-        } else if (isPedaled[i] == 1 && !rainbowMode) {
-          fill(pedaledColor); // pedaled
-        } else if (isPedaled[i] == 1 && rainbowMode) {
-          fill(map(i, 21, 108, 0, 1080)%360, 100, 70, 100); // pedaled rainbowMode
-        } else {
-          fill(0, 0, 100); // white key
-        }
-        let thisX = border + wIndex*(whiteKeyWidth+whiteKeySpace);
-        rect(thisX, keyAreaY, whiteKeyWidth, keyAreaHeight, radius);
-        // println(wIndex);
-        wIndex++;
+  let wIndex = 0; // white key index
+  stroke(0, 0, 0);
+  strokeWeight(1);
+  for (let i = 21; i < 109; i++) {
+    if (isBlack[i % 12] == 0) {
+      // it's a white key
+      if (isKeyOn[i] == 1 && !rainbowMode) {
+        fill(keyOnColor); // keypressed
+      } else if (isKeyOn[i] == 1 && rainbowMode) {
+        fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
+      } else if (isPedaled[i] == 1 && !rainbowMode) {
+        fill(pedaledColor); // pedaled
+      } else if (isPedaled[i] == 1 && rainbowMode) {
+        fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+      } else {
+        fill(0, 0, 100); // white key
       }
+      let thisX = border + wIndex * (whiteKeyWidth + whiteKeySpace);
+      rect(thisX, keyAreaY, whiteKeyWidth, keyAreaHeight, radius);
+      // println(wIndex);
+      wIndex++;
     }
+  }
 }
 
 function drawBlackKeys() {
-    let wIndex = 0; // white key index
-    stroke(0, 0, 0);
-    strokeWeight(1.5);
-    for (let i = 21; i < 109; i++) {
-      if (isBlack[i % 12] == 0) {
-        // it's a white key
-        wIndex++;
-      }
-  
-      if (isBlack[i % 12] > 0) {
-        // it's a black key
-        if (isKeyOn[i] == 1 && !rainbowMode) {
-          fill(keyOnColor); // keypressed
-        } else if (isKeyOn[i] == 1 && rainbowMode) {
-          fill(map(i, 21, 108, 0, 1080)%360, 100, 100, 100); // rainbowMode
-        } else if (isPedaled[i] == 1 && !rainbowMode) {
-          fill(pedaledColor); // pedaled
-        } else if (isPedaled[i] == 1 && rainbowMode) {
-          fill(map(i, 21, 108, 0, 1080)%360, 100, 70, 100); // pedaled rainbowMode
-        } else {
-          fill(0, 0, 0); // white key
-        }
-   
-        let thisX = border + (wIndex-1)*(whiteKeyWidth+whiteKeySpace) + isBlack[i % 12];
-        rect(thisX, keyAreaY-1, blackKeyWidth, blackKeyHeight, bRadius);
-      }
+  let wIndex = 0; // white key index
+  stroke(0, 0, 0);
+  strokeWeight(1.5);
+  for (let i = 21; i < 109; i++) {
+    if (isBlack[i % 12] == 0) {
+      // it's a white key
+      wIndex++;
     }
+
+    if (isBlack[i % 12] > 0) {
+      // it's a black key
+      if (isKeyOn[i] == 1 && !rainbowMode) {
+        fill(keyOnColor); // keypressed
+      } else if (isKeyOn[i] == 1 && rainbowMode) {
+        fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
+      } else if (isPedaled[i] == 1 && !rainbowMode) {
+        fill(pedaledColor); // pedaled
+      } else if (isPedaled[i] == 1 && rainbowMode) {
+        fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+      } else {
+        fill(0, 0, 0); // white key
+      }
+
+      let thisX = border + (wIndex - 1) * (whiteKeyWidth + whiteKeySpace) + isBlack[i % 12];
+      rect(thisX, keyAreaY - 1, blackKeyWidth, blackKeyHeight, bRadius);
+    }
+  }
 }
 
 function drawTexts() {
@@ -104,7 +103,7 @@ function drawTexts() {
   fill(0, 0, 100, 90)
   textFont('Monospace');
   textStyle(BOLD);
-  textSize(14); 
+  textSize(14);
   textAlign(LEFT, TOP);
 
   // TIME
@@ -120,23 +119,27 @@ function drawTexts() {
   text(notesText, 85, 79);
 
   // CALORIES
-  let caloriesText = "CALORIES" + "\n" + (totalIntensityScore/250).toFixed(3); // 250 Intensity = 1 kcal.
+  let caloriesText = "CALORIES" + "\n" + (totalIntensityScore / 250).toFixed(3); // 250 Intensity = 1 kcal.
   text(caloriesText, 350, 79);
 
   // SHORT-TERM DENSITY
   let shortTermDensity = shortTermTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0); // Sum the array.
-  if (shortTermDensity > notesSMax) { notesSMax = shortTermDensity };
+  if (shortTermDensity > notesSMax) {
+    notesSMax = shortTermDensity
+  };
   let shortTermDensityText = "NPS(MAX)" + "\n" + shortTermDensity + " (" + notesSMax + ")";
   text(shortTermDensityText, 190, 79);
 
   // LEGATO SCORE
-  let legatoScore = legatoHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0) 
+  let legatoScore = legatoHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
   legatoScore /= 60;
   let legatoText = "LEGATO" + "\n" + legatoScore.toFixed(2);
   text(legatoText, 276, 79);
-  
+
   // NOW PLAYING
-  let nowPlayingText = "KEYS" + "\n" + truncateString(getPressedKeys(), 47);
+  let chordSymbol = Tonal.Chord.detect(getPressedKeys(false), { assumePerfectFifth: true })
+  let chordSymbolWithoutM = chordSymbol.map((str) => str.replace(/M($|(?=\/))/g, "")); // get rid of the M's
+  let nowPlayingText = truncateString(getPressedKeys(true), 47) + "\n" + truncateString(chordSymbolWithoutM.join(' '), 47);
   text(nowPlayingText, 440, 79);
 }
 
@@ -146,7 +149,7 @@ function pushHistories() {
   notesThisFrame = 0;
   legatoHistory.push(isKeyOn.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
   legatoHistory.shift();
-  
+
 
 }
 
@@ -176,21 +179,19 @@ function convertNumberToBars(number) {
   return combinedString;
 }
 
-function getPressedKeys() {
+function getPressedKeys(returnString = true) {
   let pressedOrPedaled = [];
 
   for (let i = 0; i < isKeyOn.length; i++) {
     pressedOrPedaled[i] = isKeyOn[i] === 1 || isPedaled[i] === 1 ? 1 : 0;
 
-  } 
-
-
+  }
 
   let noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']; // default if sharp
   if ([0, 1, 3, 5, 8, 10].includes(pressedOrPedaled.indexOf(1) % 12)) {
     // flat
-    noteNames = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']; 
-  } 
+    // noteNames = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  }
 
   const pressedKeys = [];
 
@@ -201,8 +202,12 @@ function getPressedKeys() {
       pressedKeys.push(`${noteName}${octave}`);
     }
   }
+  if (returnString == true){
+    return pressedKeys.join(' ');
+  } else {
+    return pressedKeys;
+  }
 
-  return pressedKeys.join(' ');
 }
 
 function truncateString(str, maxLength = 40) {
@@ -222,15 +227,15 @@ function mouseClicked() {
     if (mouseX <= 84) {
       sessionStartTime = new Date();
     }
-    
+
     if (mouseX > 84 && mouseX < 170) {
       totalNotesPlayed = 0;
     }
-    
+
     if (mouseX > 187 && mouseX < 257) {
-      notesSMax = 0; 
+      notesSMax = 0;
     }
-    
+
     if (mouseX > 347 && mouseX < 420) {
       totalIntensityScore = 0; // RESET CALORIES
     }
