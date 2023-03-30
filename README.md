@@ -10,6 +10,7 @@
 * 熱量消耗估計（參考就好）
 * 左、右踏板深度顯示
 * 音名顯示
+* 和弦辨識（透過 Tonal.js）
 * 內建截圖功能（點鍵盤最左上角的角落）
 
 現在就用用看：https://nicechord.com/pianometer/
@@ -26,6 +27,7 @@ An 88-key piano keyboard display, great for practicing, recording videos, and li
 * Calories burned estimation
 * Pedal depths display
 * Note name display
+* Chord Recognition (via Tonal.js)
 * Built-in screenshot feature (click on the top-left corner of the keyboard)
 
 Try it now: https://nicechord.com/pianometer/
