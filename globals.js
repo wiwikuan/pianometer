@@ -23,6 +23,8 @@ let cc67now = 0;
 let sessionStartTime = new Date();
 let sessionTotalSeconds = 0;
 
+let flatNames = false;
+
 // note counter
 let notesThisFrame = 0;
 let totalNotesPlayed = 0;

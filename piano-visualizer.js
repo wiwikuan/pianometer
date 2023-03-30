@@ -188,9 +188,9 @@ function getPressedKeys(returnString = true) {
   }
 
   let noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']; // default if sharp
-  if ([0, 1, 3, 5, 8, 10].includes(pressedOrPedaled.indexOf(1) % 12)) {
+  if (flatNames) {
     // flat
-    // noteNames = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+    noteNames = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
   }
 
   const pressedKeys = [];
@@ -238,6 +238,10 @@ function mouseClicked() {
 
     if (mouseX > 347 && mouseX < 420) {
       totalIntensityScore = 0; // RESET CALORIES
+    }
+
+    if (mouseX > 441 && mouseX < 841) {
+      flatNames = !flatNames; // toggle flat  
     }
   }
   console.log(mouseX, mouseY);
