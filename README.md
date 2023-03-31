@@ -2,7 +2,7 @@
 
 88 鍵鋼琴鍵盤顯示器，練琴、拍影片、直播的好幫手！有以下的功能：
 
-* 免安裝，只要支援 Web MIDI API 的瀏覽器就可以執行！（Brave、Chrome、Opera⋯⋯）
+* 免安裝，只要支援 Web MIDI API 的瀏覽器就可以執行！（Brave、Chrome、Opera、Firefox 都可，Safari 不行）
 * 可以顯示正被按住的音，以及被踏板踩住的音。
 * 音符計數器
 * 顯示每秒鐘彈奏音符數量
@@ -21,7 +21,7 @@
 
 An 88-key piano keyboard display, great for practicing, recording videos, and live streaming! It has the following features:
 
-* No installation required, just need a browser that supports the Web MIDI API! (Brave, Chrome, Opera, etc.)
+* No installation required, just need a browser that supports the Web MIDI API! (Brave, Chrome, Opera, Firefox are OK, doesn't work on Safari)
 * Displays the currently pressed notes as well as the notes sustained by the pedal.
 * Note counter
 * Shows the number of notes played per second
