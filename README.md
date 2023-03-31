@@ -21,7 +21,7 @@
 
 An 88-key piano keyboard display, great for practicing, recording videos, and live streaming! It has the following features:
 
-* No installation required, just need a browser that supports the Web MIDI API! (Brave, Chrome, Opera, Firefox are OK, doesn't work on Safari)
+* No installation required, just need a browser that supports the Web MIDI API! (Brave, Chrome, Opera, Firefox are OK; Doesn't work on Safari)
 * Displays the currently pressed notes as well as the notes sustained by the pedal.
 * Note counter
 * Shows the number of notes played per second
