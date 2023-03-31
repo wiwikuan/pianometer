@@ -32,6 +32,6 @@ An 88-key piano keyboard display, great for practicing, recording videos, and li
 * Chord Recognition (via Tonal.js)
 * Built-in screenshot feature (click on the top-left corner of the keyboard)
 
-Introduction video: [PeerTube](https://wiwi.video/w/uzo8aZmdx1rvYJfWZBgmCM) | [YouTube](https://www.youtube.com/watch?v=YsL7WGUEU-4)
+Introduction video (with English subtitles!): [PeerTube](https://wiwi.video/w/uzo8aZmdx1rvYJfWZBgmCM) | [YouTube](https://www.youtube.com/watch?v=YsL7WGUEU-4)
 
 Try it now: https://nicechord.com/pianometer/
