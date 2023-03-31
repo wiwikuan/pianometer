@@ -17,9 +17,26 @@
            <div id="controls" class="center">
             <div>
                 <h3>鋼琴鍵盤顯示器 by NiceChord</h3>
-                <h5>選擇 MIDI 裝置</h5>
-                <input id="slider" type="range" min="0" max="0" value="0">
-                <div id="device">Select Input: </div>  
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                        <h5>選擇 MIDI 裝置</h5>
+                        <input id="slider" type="range" min="0" max="0" value="0">
+                        <div id="device">Select Input: </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: start;">
+                        <div>
+                            <label for="colorpicker">選擇顏色</label>
+                            <input type="color" id="colorpicker" value="#ff0090" oninput="changeColor()">
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 5px;">彩虹模式</span>
+                            <input type="checkbox" id="rainbow-mode-checkbox" onclick="toggleRainbowMode(this)">
+                            <label for="rainbow-mode-checkbox">
+                                <span class="switch-txt" turnOn="On" turnOff="Off"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <br />
             

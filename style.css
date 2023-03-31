@@ -545,3 +545,45 @@ template {
 [hidden] {
     display: none;
 }
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label[for=rainbow-mode-checkbox] {
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    background: grey;
+    display: inline-block;
+    border-radius: 25px;
+    position: relative;
+    transition: .3s;
+}
+
+label[for=rainbow-mode-checkbox]:after {
+    content: '';
+    position: absolute;
+    top: 1.25px;
+    left: 1.25px;
+    width: 22.5px;
+    height: 22.5px;
+    background: #fff;
+    border-radius: 22.5px;
+    transition: .3s;
+}
+
+input:checked + label[for=rainbow-mode-checkbox] {
+	background: #6f42c1;
+}
+
+label[for=rainbow-mode-checkbox]:active:after {
+	width: 32.5px;
+}
+
+input:checked + label[for=rainbow-mode-checkbox]:after {
+	left: calc(100% - 1.25px);
+	transform: translateX(-100%);
+}
