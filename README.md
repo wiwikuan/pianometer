@@ -13,6 +13,8 @@
 * 和弦辨識（透過 Tonal.js）
 * 內建截圖功能（點鍵盤最左上角的角落）
 
+介紹影片：[WiwiVideo](https://wiwi.video/w/uzo8aZmdx1rvYJfWZBgmCM) | [YouTube](https://www.youtube.com/watch?v=YsL7WGUEU-4]
+
 現在就用用看：https://nicechord.com/pianometer/
 
 # PianoMeter by NiceChord
@@ -29,5 +31,7 @@ An 88-key piano keyboard display, great for practicing, recording videos, and li
 * Note name display
 * Chord Recognition (via Tonal.js)
 * Built-in screenshot feature (click on the top-left corner of the keyboard)
+
+Introduction video: [PeerTube](https://wiwi.video/w/uzo8aZmdx1rvYJfWZBgmCM) | [YouTube](https://www.youtube.com/watch?v=YsL7WGUEU-4]
 
 Try it now: https://nicechord.com/pianometer/
