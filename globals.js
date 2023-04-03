@@ -58,12 +58,16 @@ WebMidi.enable(function (err) { //check if WebMidi.js is enabled
     }
     midiSelectSlider = select("#slider");
     midiSelectSlider.attribute("max", WebMidi.inputs.length - 1);
-    midiSelectSlider.changed(inputChanged);
+    midiSelectSlider.input(inputChanged);
     midiIn = WebMidi.inputs[midiSelectSlider.value()]
     inputChanged();
 });
 
 function inputChanged() {
+    isKeyOn.fill(0);
+    controllerChange(64, 0);
+    controllerChange(67, 0);
+
     midiIn.removeListener();
     midiIn = WebMidi.inputs[midiSelectSlider.value()];
     midiIn.addListener('noteon', "all", function (e) {
