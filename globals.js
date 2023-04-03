@@ -127,3 +127,18 @@ function controllerChange(number, value) {
 
     }
 }
+
+function toggleRainbowMode(cb) {
+    rainbowMode = cb.checked;
+    if (rainbowMode)
+        select('#colorpicker').attribute('disabled', true)
+    else
+        select('#colorpicker').removeAttribute('disabled')
+}
+
+function changeColor() {
+    keyOnColor = pedaledColor = color(select('#colorpicker').value());
+    darkenedColor = keyOnColor.levels.map(x => floor(x * .7));
+    pedaledColor = color(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`)
+    console.log(pedaledColor.levels);
+}
