@@ -17,6 +17,7 @@ let bRadius = 4; // 黑鍵圓角(default: 4)
 let keyAreaY = 3; // 白鍵從 Y 軸座標多少開始？(default: 3)
 let keyAreaHeight = 70; // 白鍵多高？(default: 70)
 let rainbowMode = false; // 彩虹模式 (default: false)
+let velocityMode = false; // 力度模式 (default: false)
 let cc64now = 0; // 現在的踏板狀態
 let cc67now = 0;
 
@@ -92,9 +93,9 @@ function noteOn(pitch, velocity) {
     totalIntensityScore += velocity;
     
     // piano visualizer
-    isKeyOn[pitch] = 1;
+    isKeyOn[pitch] = velocity;
     if (nowPedaling) {
-      isPedaled[pitch] = 1;
+      isPedaled[pitch] = velocity;
     }
 }
 
@@ -136,9 +137,12 @@ function toggleRainbowMode(cb) {
         select('#colorpicker').removeAttribute('disabled')
 }
 
+function toggleVelocityMode(cb) {
+    velocityMode = cb.checked;
+}
+
 function changeColor() {
-    keyOnColor = pedaledColor = color(select('#colorpicker').value());
-    darkenedColor = keyOnColor.levels.map(x => floor(x * .7));
-    pedaledColor = color(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`)
-    console.log(pedaledColor.levels);
+    keyOnColor = color(select('#colorpicker').value());
+    let darkenedColor = keyOnColor.levels.map(x => floor(x * .7));
+    pedaledColor = color(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`);
 }

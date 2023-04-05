@@ -49,16 +49,28 @@ function drawWhiteKeys() {
   for (let i = 21; i < 109; i++) {
     if (isBlack[i % 12] == 0) {
       // it's a white key
-      if (isKeyOn[i] == 1 && !rainbowMode) {
-        fill(keyOnColor); // keypressed
-      } else if (isKeyOn[i] == 1 && rainbowMode) {
-        fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
-      } else if (isPedaled[i] == 1 && !rainbowMode) {
-        fill(pedaledColor); // pedaled
-      } else if (isPedaled[i] == 1 && rainbowMode) {
-        fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+      if (velocityMode) {
+        let m = max(isKeyOn[i], isPedaled[i]) * .9 + .1;
+        if ((isKeyOn[i] || isPedaled[i]) && !rainbowMode) {
+          let whitenedColor = keyOnColor.levels.map(x => floor(x * m + 255 * (1 - m)));
+          fill(`rgb(${whitenedColor[0]}, ${whitenedColor[1]}, ${whitenedColor[2]})`); // keypressed
+        } else if ((isKeyOn[i] || isPedaled[i]) && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100 * m, 100, 100); // rainbowMode
+        } else {
+          fill(0, 0, 100); // white key
+        }
       } else {
-        fill(0, 0, 100); // white key
+        if (isKeyOn[i] && !rainbowMode) {
+          fill(keyOnColor); // keypressed
+        } else if (isKeyOn[i] && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
+        } else if (isPedaled[i] && !rainbowMode) {
+          fill(pedaledColor); // pedaled
+        } else if (isPedaled[i] && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+        } else {
+          fill(0, 0, 100); // white key
+        }
       }
       let thisX = border + wIndex * (whiteKeyWidth + whiteKeySpace);
       rect(thisX, keyAreaY, whiteKeyWidth, keyAreaHeight, radius);
@@ -80,16 +92,28 @@ function drawBlackKeys() {
 
     if (isBlack[i % 12] > 0) {
       // it's a black key
-      if (isKeyOn[i] == 1 && !rainbowMode) {
-        fill(keyOnColor); // keypressed
-      } else if (isKeyOn[i] == 1 && rainbowMode) {
-        fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
-      } else if (isPedaled[i] == 1 && !rainbowMode) {
-        fill(pedaledColor); // pedaled
-      } else if (isPedaled[i] == 1 && rainbowMode) {
-        fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+      if (velocityMode) {
+        let m = max(isKeyOn[i], isPedaled[i]) * .9 + .1;
+        if ((isKeyOn[i] || isPedaled[i]) && !rainbowMode) {
+          let darkenedColor = keyOnColor.levels.map(x => floor(x * m));
+          fill(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`); // keypressed
+        } else if ((isKeyOn[i] || isPedaled[i]) && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100, 100 * m, 100); // rainbowMode
+        } else {
+          fill(0, 0, 0); // black key
+        }
       } else {
-        fill(0, 0, 0); // white key
+        if (isKeyOn[i] && !rainbowMode) {
+          fill(keyOnColor); // keypressed
+        } else if (isKeyOn[i] && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100, 100, 100); // rainbowMode
+        } else if (isPedaled[i] && !rainbowMode) {
+          fill(pedaledColor); // pedaled
+        } else if (isPedaled[i] && rainbowMode) {
+          fill(map(i, 21, 108, 0, 1080) % 360, 100, 70, 100); // pedaled rainbowMode
+        } else {
+          fill(0, 0, 0); // black key
+        }
       }
 
       let thisX = border + (wIndex - 1) * (whiteKeyWidth + whiteKeySpace) + isBlack[i % 12];
@@ -147,7 +171,7 @@ function pushHistories() {
   shortTermTotal.push(notesThisFrame);
   shortTermTotal.shift();
   notesThisFrame = 0;
-  legatoHistory.push(isKeyOn.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
+  legatoHistory.push(isKeyOn.reduce((accumulator, currentValue) => accumulator + !!currentValue, 0));
   legatoHistory.shift();
 
 
@@ -183,8 +207,7 @@ function getPressedKeys(returnString = true) {
   let pressedOrPedaled = [];
 
   for (let i = 0; i < isKeyOn.length; i++) {
-    pressedOrPedaled[i] = isKeyOn[i] === 1 || isPedaled[i] === 1 ? 1 : 0;
-
+    pressedOrPedaled[i] = isKeyOn[i] || isPedaled[i];
   }
 
   let noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']; // default if sharp
@@ -196,7 +219,7 @@ function getPressedKeys(returnString = true) {
   const pressedKeys = [];
 
   for (let i = 0; i < pressedOrPedaled.length; i++) {
-    if (pressedOrPedaled[i] === 1) {
+    if (pressedOrPedaled[i]) {
       const noteName = noteNames[i % 12];
       const octave = Math.floor(i / 12) - 1;
       pressedKeys.push(`${noteName}${octave}`);
