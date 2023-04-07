@@ -182,8 +182,10 @@ function handleMidiMessageReceived(event) {
                 break;
             case 128:
                 noteOff(value1, value2);
+                break;
             case 176:
                 controllerChange(value1, value2);
+                break;
             default:
                 break;
         }
