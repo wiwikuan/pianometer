@@ -59,8 +59,10 @@ WebMidi.enable(function (err) { //check if WebMidi.js is enabled
     midiSelectSlider = select("#slider");
     midiSelectSlider.attribute("max", WebMidi.inputs.length - 1);
     midiSelectSlider.input(inputChanged);
-    midiIn = WebMidi.inputs[midiSelectSlider.value()]
-    inputChanged();
+    if (midiSelectSlider.value()) {
+        midiIn = WebMidi.inputs[midiSelectSlider.value()]
+        inputChanged();
+    }
 });
 
 function inputChanged() {
@@ -78,10 +80,10 @@ function inputChanged() {
         console.log("Received 'noteoff' message (" + e.note.number + ", " + e.velocity + ").");
         noteOff(e.note.number, e.velocity);
     })
-    midiIn.addListener('controlchange', 'all', function(e) {
+    midiIn.addListener('controlchange', 'all', function (e) {
         console.log("Received control change message:", e.controller.number, e.value);
         controllerChange(e.controller.number, e.value)
-      });
+    });
     console.log(midiIn.name);
     select("#device").html(midiIn.name);
 };
@@ -90,11 +92,11 @@ function noteOn(pitch, velocity) {
     totalNotesPlayed++;
     notesThisFrame++;
     totalIntensityScore += velocity;
-    
+
     // piano visualizer
     isKeyOn[pitch] = 1;
     if (nowPedaling) {
-      isPedaled[pitch] = 1;
+        isPedaled[pitch] = 1;
     }
 }
 
@@ -105,20 +107,20 @@ function noteOff(pitch, velocity) {
 function controllerChange(number, value) {
     // Receive a controllerChange
     if (number == 64) {
-        cc64now = value; 
+        cc64now = value;
 
         if (value >= 64) {
-          nowPedaling = true;
-          for (let i = 0; i < 128; i++) {
-            // copy key on to pedal
-            isPedaled[i] = isKeyOn[i];
-          }
+            nowPedaling = true;
+            for (let i = 0; i < 128; i++) {
+                // copy key on to pedal
+                isPedaled[i] = isKeyOn[i];
+            }
         } else if (value < 64) {
-          nowPedaling = false;
-          for (let i = 0; i < 128; i++) {
-            // reset isPedaled
-            isPedaled[i] = 0;
-          }
+            nowPedaling = false;
+            for (let i = 0; i < 128; i++) {
+                // reset isPedaled
+                isPedaled[i] = 0;
+            }
         }
     }
 
@@ -141,4 +143,49 @@ function changeColor() {
     darkenedColor = keyOnColor.levels.map(x => floor(x * .7));
     pedaledColor = color(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`)
     console.log(pedaledColor.levels);
+}
+
+async function requestBleMidi() {
+    const MIDI_SERVICE = '03b80e5a-ede8-4b33-a751-6ce34ec4c700';
+    const MIDI_CHARACTERISTIC = '7772e5db-3868-4112-a1a9-f2669d106bf3'
+    const bluetoothDevice = await navigator.bluetooth.requestDevice({
+        filters: [{
+            services: [MIDI_SERVICE]
+        }]
+    });
+    console.log(`Name: ${bluetoothDevice.name}`);
+    document.querySelector('#device').textContent = bluetoothDevice.name;
+    bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+    const server = await bluetoothDevice.gatt.connect();
+    const service = await server.getPrimaryService(MIDI_SERVICE);
+    const characteristic = await service.getCharacteristic(MIDI_CHARACTERISTIC);
+    await characteristic.startNotifications();
+    characteristic.addEventListener('characteristicvaluechanged', handleMidiMessageReceived);
+}
+
+function onDisconnected(event) {
+    const device = event.target;
+    console.log('Device ' + device.name + ' is disconnected.');
+}
+
+function handleMidiMessageReceived(event) {
+    const { buffer } = event.target.value;
+    const eventData = new Uint8Array(buffer);
+    for (let i = 0; i < (eventData.length - 1) / 4; i++) {
+        const index = 4 * i;
+        const status = eventData[index + 2];
+        const value1 = eventData[index + 3];
+        const value2 = eventData[index + 4];
+        switch (status) {
+            case 144:
+                noteOn(value1, value2);
+                break;
+            case 128:
+                noteOff(value1, value2);
+            case 176:
+                controllerChange(value1, value2);
+            default:
+                break;
+        }
+    }
 }
