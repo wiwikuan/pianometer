@@ -221,7 +221,17 @@ function truncateString(str, maxLength = 40) {
 function mouseClicked() {
   // Save the canvas content as an image file
   if (mouseX < 50 && mouseY < 50) {
-    saveCanvas('nicechord-pianometer', 'png');
+    const now = new Date();
+    const strDate =
+      now.getFullYear() +
+      String(now.getMonth()+1).padStart(2, '0') +
+      String(now.getDate()).padStart(2, '0');
+    const strTime =
+      String(now.getHours()).padStart(2, '0') +
+      String(now.getMinutes()).padStart(2, '0') +
+      String(now.getSeconds()).padStart(2, '0');
+    const fileName = `nicechord-pianometer-${strDate}_${strTime}`;
+    saveCanvas(fileName, 'png');
   }
   if (mouseY > 76) {
     if (mouseX <= 84) {
