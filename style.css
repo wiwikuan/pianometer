@@ -552,7 +552,7 @@ input[type=checkbox] {
     visibility: hidden;
 }
 
-label[for=rainbow-mode-checkbox] {
+label.custom-checkbox {
     cursor: pointer;
     width: 50px;
     height: 25px;
@@ -563,7 +563,7 @@ label[for=rainbow-mode-checkbox] {
     transition: .3s;
 }
 
-label[for=rainbow-mode-checkbox]:after {
+label.custom-checkbox:after {
     content: '';
     position: absolute;
     top: 1.25px;
@@ -575,15 +575,15 @@ label[for=rainbow-mode-checkbox]:after {
     transition: .3s;
 }
 
-input:checked + label[for=rainbow-mode-checkbox] {
+input:checked + label.custom-checkbox {
 	background: #6f42c1;
 }
 
-label[for=rainbow-mode-checkbox]:active:after {
+label.custom-checkbox:active:after {
 	width: 32.5px;
 }
 
-input:checked + label[for=rainbow-mode-checkbox]:after {
+input:checked + label.custom-checkbox:after {
 	left: calc(100% - 1.25px);
 	transform: translateX(-100%);
 }
