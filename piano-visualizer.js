@@ -93,12 +93,18 @@ function drawBlackKeys() {
     if (isBlack[i % 12] > 0) {
       // it's a black key
       if (velocityMode) {
+        // let m = max(isKeyOn[i], isPedaled[i]) * .9 + .1;
+        // if ((isKeyOn[i] || isPedaled[i]) && !rainbowMode) {
+        //   let darkenedColor = keyOnColor.levels.map(x => floor(x * m));
+        //   fill(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`); // keypressed
+        // } else if ((isKeyOn[i] || isPedaled[i]) && rainbowMode) {
+        //   fill(map(i, 21, 108, 0, 1080) % 360, 100, 100 * m, 100); // rainbowMode
         let m = max(isKeyOn[i], isPedaled[i]) * .9 + .1;
         if ((isKeyOn[i] || isPedaled[i]) && !rainbowMode) {
-          let darkenedColor = keyOnColor.levels.map(x => floor(x * m));
-          fill(`rgb(${darkenedColor[0]}, ${darkenedColor[1]}, ${darkenedColor[2]})`); // keypressed
+          let whitenedColor = keyOnColor.levels.map(x => floor(x * m + 255 * (1 - m)));
+          fill(`rgb(${whitenedColor[0]}, ${whitenedColor[1]}, ${whitenedColor[2]})`); // keypressed
         } else if ((isKeyOn[i] || isPedaled[i]) && rainbowMode) {
-          fill(map(i, 21, 108, 0, 1080) % 360, 100, 100 * m, 100); // rainbowMode
+          fill(map(i, 21, 108, 0, 1080) % 360, 100 * m, 100, 100); // rainbowMode
         } else {
           fill(0, 0, 0); // black key
         }
