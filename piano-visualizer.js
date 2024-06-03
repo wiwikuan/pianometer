@@ -14,9 +14,7 @@ function draw() {
   pushHistories();
   drawWhiteKeys();
   drawBlackKeys();
-  // drawPedalLines();
-  // drawNotes();
-
+  if (displayNoteNames) {drawNoteNames();};
   drawTexts();
 }
 
@@ -95,6 +93,25 @@ function drawBlackKeys() {
       let thisX = border + (wIndex - 1) * (whiteKeyWidth + whiteKeySpace) + isBlack[i % 12];
       rect(thisX, keyAreaY - 1, blackKeyWidth, blackKeyHeight, bRadius);
     }
+  }
+}
+
+function drawNoteNames() {
+  let noteNames = ["A", "B", "C", "D", "E", "F", "G"]; // 音名數組
+  
+  textSize(12); // 設置文字大小
+  noStroke();
+  fill(0, 0, 0, 75); // 設置文字顏色為黑色
+  textAlign(CENTER, CENTER); // 設置文字對齊方式為居中
+  textStyle(NORMAL);
+  
+  let wIndex = 0; // 白鍵索引
+  for (let i = 0; i < 52; i++) { // 遍歷所有白鍵
+    let thisX = border + wIndex * (whiteKeyWidth + whiteKeySpace);
+    let thisY = keyAreaY + keyAreaHeight - 11; // 調整文字的垂直位置
+    let noteName = noteNames[i % 7]; // 獲取對應的音名
+    text(noteName, thisX + whiteKeyWidth / 2, thisY); // 繪製音名文字
+    wIndex++;
   }
 }
 

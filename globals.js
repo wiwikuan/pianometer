@@ -17,6 +17,7 @@ let bRadius = 4; // 黑鍵圓角(default: 4)
 let keyAreaY = 3; // 白鍵從 Y 軸座標多少開始？(default: 3)
 let keyAreaHeight = 70; // 白鍵多高？(default: 70)
 let rainbowMode = false; // 彩虹模式 (default: false)
+let displayNoteNames = false; // 白鍵要不要顯示音名 (default: false)
 let cc64now = 0; // 現在的踏板狀態
 let cc67now = 0;
 
@@ -134,6 +135,10 @@ function toggleRainbowMode(cb) {
         select('#colorpicker').attribute('disabled', true)
     else
         select('#colorpicker').removeAttribute('disabled')
+}
+
+function toggleDisplayNoteNames(cb) {
+    displayNoteNames = cb.checked;
 }
 
 function changeColor() {
